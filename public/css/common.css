@@ -1,0 +1,29 @@
+body {
+    padding-top: 55px;
+}
+
+.custom-file {
+    overflow: hidden;
+}
+
+.custom-file-label {
+    white-space: nowrap;
+}
+
+.page-title {
+    text-align: center;
+    font-size: 1.5em;
+    font-weight: bold;
+    margin: 10px 0;
+}
+
+.sub-page-title {
+    text-align: center;
+    font-size: 1.1em;
+    font-weight: bold;
+    margin: 10px 0;
+}
+
+.error-message {
+    color: red;
+}

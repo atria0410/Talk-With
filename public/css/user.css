@@ -1,0 +1,70 @@
+.profile-title {
+    font-size: 1.5em;
+    margin-bottom: 2em;
+}
+
+.info {
+    padding-left:1.0em;
+}
+
+.user-edit-btn {
+    margin-top: 30px;
+    text-align:center;
+}
+
+.user-edit-btn button {
+    width: 12em;
+}
+
+.user-create-btn {
+    margin-top: 30px;
+    text-align:center;
+}
+
+.user-create-btn button {
+    width: 12em;
+}
+
+.icon {
+    margin-bottom: 1em;
+    object-fit: cover;
+    height: 150px;
+    width: 150px;
+}
+
+.follower table {
+    width: 100%;
+}
+
+.follower .td-follower-icon {
+    width: 3.0em;
+}
+
+.follower .follower-icon {
+    border: 1px solid black;
+    border-radius: 50%;
+    width: 3.0em;
+    height: 3.0em;
+    margin-top: 5px;
+    margin-right: 3px;
+}
+
+.follower .td-follower-name {
+    font-size: 1.2em;
+    font-weight: bold;
+    word-wrap: break-word;
+}
+
+.follower .td-follower-btn button {
+    float: right;
+    width: 8em;
+}
+
+.follower .tr-follower-comment {
+    border-bottom: 1px solid #dedede;
+}
+
+.follower .td-follower-comment {
+    padding-left: 3.2em;
+    font-size: 1.1em;
+}

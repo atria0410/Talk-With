@@ -1,0 +1,33 @@
+.title-text {
+    text-align: center;
+    font-size: 1.5em;
+    font-weight: bold;
+    margin-bottom: 1em;
+}
+
+.card {
+    margin-top: 50px;
+}
+
+.message {
+    color: red;
+    font-weight: bold;
+    margin: 1em 0;
+}
+
+.login {
+    margin-top: 2em;
+    margin-bottom: 1em;
+}
+
+.password_reminder {
+    text-align: center;
+}
+
+.guest-login {
+    margin: 0.5em 0;
+}
+
+.sign-up {
+    margin: 0.5em 0;
+}

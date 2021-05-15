@@ -1,0 +1,180 @@
+/* ルーム一覧ページ */
+.room {
+    background-color: #eee;
+    margin-bottom: 30px;
+}
+
+.room a {
+    color: black;
+}
+
+.room a:hover {
+    text-decoration: none;
+    color: black;
+}
+
+.room-title {
+    word-wrap: break-word;
+    overflow: hidden;
+    height: 3.5em;
+    font-weight: bold;
+}
+
+.room-create-btn {
+    margin-top: 30px;
+    text-align: center;
+}
+
+dl.search-form {
+    position: relative;
+    margin-top: 0.5em;
+    background-color: #fff;
+    border:1px solid #aaa;
+    border-radius: 50px;
+}
+
+dl.search-form dt {
+    margin-right: 40px;
+    padding:8px 0 8px 15px;
+}
+
+dl.search-form dt input {
+    width: 100%;
+    height: 20px;
+	line-height: 20px;
+    background: none;
+	border: none;
+}
+
+dl.search-form dt input:focus {
+    outline: 0;
+    background: none;
+}
+
+dl.search-form dd {
+    position: absolute;
+	top: 0;
+	right: 0;
+}
+
+dl.search-form dd button {
+    padding:8px;
+	background: none;
+	border: none;
+}
+
+dl.search-form dd button img {
+    display: block;
+	width: 20px;
+	height: 20px;
+}
+
+/* ルーム作成ページ */
+.form-label {
+    font-weight: bold;
+}
+
+.thumbnail {
+    margin-bottom: 1em;
+    object-fit: cover;
+    height: 300px;
+    width: 300px;
+}
+
+/* チャットページ */
+.fixed-title {
+    width: 100%;
+    padding: 0 5%;
+    padding-bottom: 40px;
+    margin-right: auto;
+    margin-left: auto;
+    z-index: 1;
+    height: 90px;
+    padding-top: 55px;
+    background-color: #f8fafc;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    border-bottom: solid 1px lightgray;
+}
+
+.bord {
+    padding-top: 65px;
+    padding-bottom: 100px;
+}
+
+.bord table {
+    margin-bottom: 1em;
+    width: 100%;
+}
+
+.bord .date {
+    width: 10em;
+    margin: 0 auto;
+    margin-bottom: 0.5em;
+    text-align: center;
+    height: 2.0em;
+    background-color: lightgray;
+    border-radius: 1.0em;
+    line-height: 2.0em;
+}
+
+.bord .td-icon {
+    width: 3.0em;
+}
+
+.bord .icon {
+    border: 1px solid black;
+    border-radius: 50%;
+    width: 3.0em;
+    height: 3.0em;
+    margin-top: 5px;
+    margin-right: 3px;
+}
+
+.bord .sub-table {
+    table-layout: fixed;
+    width: 100%;
+}
+
+.bord .sub-table td {
+    word-wrap: break-word;
+}
+
+.bord .name {
+    font-size: 1.1em;
+    font-weight: bold;
+}
+
+.bord .owner-icon {
+    height: 1.1em;
+    width: 1.1em;
+    margin-bottom: 6px;
+}
+
+.bord .time {
+    font-size: 0.7em;
+    margin-left: 0.5em;
+}
+
+.bord .td-message {
+    font-size: 1.1em;
+}
+
+.bord .image {
+    margin: 10px 10px;
+}
+
+.message-form {
+    background-color: #f8fafc;
+    padding-top: 1.0em;
+    padding-bottom: 15px;
+}
+
+.message-form textarea{
+    resize: none;
+}
+
+.send-message-btn button {
+    width: 100%;
+}
