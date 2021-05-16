@@ -15,13 +15,11 @@
 @section('content')
 
     <div id="show">
-        <input type="hidden" ref="strage_path" value="{{ asset('storage/') }}">
-        <input type="hidden" ref="user_id" value="{{ $user->id }}">
-        <input type="hidden" ref="followed" value="{{ $followed }}">
 
         <div class="page-title">ユーザー情報</div>
         
-        <div class="card">
+        <!-- プロフィール -->
+        <div class="profile card">
             <div class="card-body">
                 <div class="profile-title">
                     <b>{{ $user->name }}</b> さんのプロフィール
@@ -53,53 +51,113 @@
                     </div>
                 @elseif (session('user_id') != 1)
                     <div class="user-edit-btn">
-                        <input type="hidden" :id="user_id" :value="followed">
-                        <button v-if="followed" :id="`btn${user_id}`" @click="follow(user_id)" class="btn btn-danger">
-                            フォロー解除
-                        </button>
-                        <button v-else :id="`btn${user_id}`" @click="follow(user_id)" class="btn btn-primary">
-                            フォローする
-                        </button>
+                        <input type="hidden" id="user-{{ $user->id }}" value="{{ $followed }}">
+                        @if($followed)
+                            <button @click="follow({{ $user->id }}, 'user-{{ $user->id }}')" class="btn btn-danger">
+                                フォロー解除
+                            </button>
+                        @else
+                            <button @click="follow({{ $user->id }}, 'user-{{ $user->id }}')" class="btn btn-primary">
+                                フォローする
+                            </button>
+                        @endif
                     </div>
                 @endif
             </div>
         </div>
 
-        <div class="follower">
-            <div class="sub-page-title">フォロワー</div>
+        <div class="tabs">
+            <!-- タブ -->
+            <input type="radio" id="tab1" name="tab" checked>
+            <label for="tab1" class="tab_lab">フォロー</label>
+            <input type="radio" id="tab2" name="tab">
+            <label for="tab2" class="tab_lab">フォロワー</label>
 
-            <div class="card">
-                <table>
-                    <template v-for="(follower, index) in followers">
-                        <tr>
-                            <td>
-                                <table>
-                                    <tr>
-                                        <td valign="top" class="td-follower-icon">
-                                            <a :href="`/user/${follower.id}`">
-                                                <img :src="`${stragePath}/${follower.icon}`" alt="アイコン" class="follower-icon">
-                                            </a>
-                                        </td>
-                                        <td class="td-follower-name">
-                                            @{{ follower.name }}
-                                        </td>
-                                        <td class="td-follower-btn">
-                                            <input type="hidden" :id="follower.id" :value="follower.followed">
-                                            @if (session('user_id') != 1)
-                                            <template v-if="follower.id != {{ session('user_id') }}">
-                                                <button v-if="follower.followed" :id="`btn${follower.id}`" @click="follow(follower.id)" class="btn btn-danger">フォロー解除</button>
-                                                <button v-else :id="`btn${follower.id}`" @click="follow(follower.id)" class="btn btn-primary">フォローする</button>
-                                            </template>
+            <div class="card follow-follower">
+                <!-- フォロー -->
+                <table id="follow" class="panel">
+                    @foreach ($follows as $follow)
+                    <tr>
+                        <td>
+                            <table>
+                                <tr>
+                                    <!-- アイコン -->
+                                    <td valign="top" class="td-icon">
+                                        <a href="/user/{{ $follow->id }}">
+                                            <img src="{{ asset('storage/') }}/{{ $follow->icon }}" alt="アイコン" class="follower-icon">
+                                        </a>
+                                    </td>
+                                    <!-- ユーザー名 -->
+                                    <td class="td-name">
+                                        {{ $follow->name }}
+                                    </td>
+                                    <!-- フォローボタン -->
+                                    <td class="td-btn">
+                                        {{-- 自分自身またはゲストユーザーの場合は表示しない --}}
+                                        @if ($follow->id != session('user_id') && session('user_id') != 1)
+                                            <input type="hidden" id="follow-{{ $follow->id }}" value="{{ $follow->followed }}">
+                                            @if(!$follow->followed)
+                                                <button @click="follow({{ $follow->id }}, 'follow-{{ $follow->id }}')" class="btn btn-primary">
+                                                    フォローする
+                                                </button>
+                                            @else
+                                                <button @click="follow({{ $follow->id }}, 'follow-{{ $follow->id }}')" class="btn btn-danger">
+                                                    フォロー解除
+                                                </button>
                                             @endif
-                                        </td>
-                                    </tr>
-                                </table>
-                            </td>
-                        </tr>
-                        <tr class="tr-follower-comment">
-                            <td class="td-follower-comment">@{{ follower.comment }}</td>
-                        </tr>
-                    </template>
+                                        @endif
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+                    <tr class="tr-comment">
+                        <td class="td-comment">{{ $follow->comment }}</td>
+                    </tr>
+                    @endforeach
+                </table>
+
+                <!-- フォロワー -->
+                <table id="follower" class="panel">
+                    @foreach ($followers as $follower)
+                    <tr>
+                        <td>
+                            <table>
+                                <tr>
+                                    <!-- アイコン -->
+                                    <td valign="top" class="td-icon">
+                                        <a href="/user/{{ $follower->id }}">
+                                            <img src="{{ asset('storage/') }}/{{ $follower->icon }}" alt="アイコン" class="follower-icon">
+                                        </a>
+                                    </td>
+                                    <!-- ユーザー名 -->
+                                    <td class="td-name">
+                                        {{ $follower->name }}
+                                    </td>
+                                    <!-- フォローボタン -->
+                                    <td class="td-btn">
+                                        {{-- 自分自身またはゲストユーザーの場合は表示しない --}}
+                                        @if ($follower->id != session('user_id') && session('user_id') != 1)
+                                            <input type="hidden" id="follower-{{ $follower->id }}" value="{{ $follower->followed }}">
+                                            @if(!$follower->followed)
+                                                <button @click="follow({{ $follower->id }}, 'follower-{{ $follower->id }}')" class="btn btn-primary">
+                                                    フォローする
+                                                </button>
+                                            @else
+                                                <button id="follo" @click="follow({{ $follower->id }}, 'follower-{{ $follower->id }}')" class="btn btn-danger">
+                                                    フォロー解除
+                                                </button>
+                                            @endif
+                                        @endif
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+                    <tr class="tr-comment">
+                        <td class="td-comment">{{ $follower->comment }}</td>
+                    </tr>
+                    @endforeach
                 </table>
             </div>
         </div>

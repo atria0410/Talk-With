@@ -1,3 +1,7 @@
+.profile {
+    margin-bottom: 10px;
+}
+
 .profile-title {
     font-size: 1.5em;
     margin-bottom: 2em;
@@ -32,15 +36,52 @@
     width: 150px;
 }
 
-.follower table {
+#tab1:checked~.follow-follower #follow {
+	display: inline-table;
+}
+
+#tab2:checked~.follow-follower #follower {
+	display: inline-table;
+}
+
+.tab_lab {
+    box-sizing: border-box;
+    background-color: #d9d9d9;
+    font-size: 1.1em;
+    width: 50%;
+    height: 2em;
+    line-height: 2em;
+    margin: 0;
+    padding: 0;
+    text-align: center;
+    border-bottom: 3px solid #5ab4bd;
+    float: left;
+}
+
+.tabs input:checked + .tab_lab {
+    background-color: #5ab4bd;
+    font-weight: bold;
+    color: #fff;
+    border-bottom: #5ab4bd;
+}
+
+input[name="tab"] {
+	display: none;
+}
+
+.panel {
+	display: none;
+}
+
+.follow-follower table {
     width: 100%;
 }
 
-.follower .td-follower-icon {
+.follow-follower .td-icon {
     width: 3.0em;
 }
 
-.follower .follower-icon {
+.follow-follower .follower-icon {
     border: 1px solid black;
     border-radius: 50%;
     width: 3.0em;
@@ -49,22 +90,22 @@
     margin-right: 3px;
 }
 
-.follower .td-follower-name {
+.follow-follower .td-name {
     font-size: 1.2em;
     font-weight: bold;
     word-wrap: break-word;
 }
 
-.follower .td-follower-btn button {
+.follow-follower .td-btn button {
     float: right;
     width: 8em;
 }
 
-.follower .tr-follower-comment {
+.follow-follower .tr-comment {
     border-bottom: 1px solid #dedede;
 }
 
-.follower .td-follower-comment {
+.follow-follower .td-comment {
     padding-left: 3.2em;
-    font-size: 1.1em;
+    font-size: 1.0em;
 }

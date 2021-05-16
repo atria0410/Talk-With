@@ -40,15 +40,71 @@ class UserController extends Controller
 			return redirect($previous_url);
         }
 
-        // フォロー状態を取得
+        // ログイン中ユーザーがこのユーザーをフォローしているか
         $follow = Follow::where('user_id', session('user_id'))
                         ->where('follow_id', $user_id)
                         ->first();
 
         $followed = (!is_null($follow)) ? true : false;
 
+        // このユーザーのフォローユーザーを取得
+        $sql = <<< SQL
+        SELECT
+            users.id,
+            users.name,
+            users.icon,
+            users.comment,
+            CASE
+                WHEN users.id IN (
+                    SELECT follow_id FROM follows WHERE user_id = :login_user_id
+                ) THEN true
+                ELSE FALSE
+            END AS followed
+        FROM
+            follows
+        JOIN users ON follows.follow_id = users.id
+        WHERE user_id = :user_id
+        ORDER BY follows.updated_at
+        SQL;
+
+        $params = [
+            'login_user_id' => session('user_id'),
+            'user_id' => $user->id,
+        ];
+
+        $follows = DB::select($sql, $params);
+
+        // このユーザーのフォロワーを取得
+        $sql = <<< SQL
+        SELECT
+            users.id,
+            users.name,
+            users.icon,
+            users.comment,
+            CASE
+                WHEN users.id IN (
+                    SELECT follow_id FROM follows WHERE user_id = :login_user_id
+                ) THEN true
+                ELSE FALSE
+            END AS followed
+        FROM
+            follows
+        JOIN users ON follows.user_id = users.id
+        WHERE follow_id = :user_id
+        ORDER BY follows.updated_at
+        SQL;
+
+        $params = [
+            'login_user_id' => session('user_id'),
+            'user_id' => $user->id,
+        ];
+
+        $followers = DB::select($sql, $params);
+
         $params = [
             'user' => $user,
+            'follows' => $follows,
+            'followers' => $followers,
             'followed' => $followed,
         ];
 
@@ -160,43 +216,6 @@ class UserController extends Controller
         return redirect('/user/' . $user_id)
             ->with('flash_message', 'ユーザー情報が更新されました');
         
-    }
-
-    /***********************************************************/
-    /* フォロワー取得                                           */
-    /***********************************************************/
-    public function getFollower($follow_id)
-    {
-        // フォロワー情報の取得
-        $sql = <<< SQL
-        SELECT
-            users.id,
-            users.name,
-            users.icon,
-            users.comment,
-            CASE
-                WHEN users.id IN (
-                    SELECT follow_id FROM follows WHERE user_id = :user_id
-                ) THEN true
-                ELSE FALSE
-            END AS followed
-        FROM
-            follows
-        JOIN users ON follows.user_id = users.id
-        WHERE follow_id = :follow_id
-        ORDER BY follows.updated_at
-        SQL;
-
-        $params = [
-            'user_id' => session('user_id'),
-            'follow_id' => $follow_id,
-        ];
-
-        $follower = DB::select($sql, $params);
-
-        $json = json_encode($follower);
-
-        echo $json;
     }
 
     /***********************************************************/

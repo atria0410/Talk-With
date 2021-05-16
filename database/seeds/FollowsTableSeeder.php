@@ -29,6 +29,14 @@ class FollowsTableSeeder extends Seeder
             DB::table('follows')->insert($param);
 
             $param = [
+                'user_id' => 3,
+                'follow_id' => 2,
+                'created_at' => new DateTime(),
+                'updated_at' => new DateTime(),
+            ];
+            DB::table('follows')->insert($param);
+
+            $param = [
                 'user_id' => 4,
                 'follow_id' => 3,
                 'created_at' => new DateTime(),
