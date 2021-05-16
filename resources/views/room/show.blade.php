@@ -20,8 +20,21 @@
         <input type="hidden" ref="strage_path" value="{{ asset('storage/') }}">
 
         <!-- タイトル -->
-        <div class="page-title fixed-top fixed-title">
-            {{ $room->title }}
+        <div class="fixed-top fixed-title">
+            <div class="container">
+                <div class="row">
+                    <div class="col-9 room-title2">
+                        {{ $room->title }}
+                    </div>
+                    <div class="col-3 room-edit-btn">
+                        @if ($room->user_id == session('user_id'))
+                        <a href="/room/{{ $room->id }}/edit">
+                            <button class="btn btn-primary">編集</button>
+                        </a>
+                        @endif
+                    </div>
+                </div>
+            </div>
         </div>
 
         <!-- 投稿 -->
@@ -62,11 +75,6 @@
                         </td>
                     </tr>
                 </table>
-                <template v-if="index == 7">
-                    <div class="text-center">
-                    　　<span>このルームは投稿が1000件を超えました</span>
-                    </div>
-                </template>
             </template>
         </div>
 

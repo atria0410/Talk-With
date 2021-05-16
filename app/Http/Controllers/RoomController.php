@@ -12,6 +12,20 @@ use App\Events\MessageCreated;
 
 class RoomController extends Controller
 {
+    /***********************************************************/
+    /* 権限チェック                                             */
+    /***********************************************************/
+    public function permissionCheack($room_id) {
+        // アクセス権限がない場合前の画面にリダイレクト
+        $room = Room::find($room_id);
+
+        if(session('user_id') != $room->user_id){
+            // メッセージを表示
+            echo "<script>alert('アクセス権限がありません。リダイレクトします。')</script>;";
+            return false;
+        }
+        return true;
+    }
 
     /***********************************************************/
     /* ルーム一覧ページ                                         */
@@ -144,7 +158,83 @@ class RoomController extends Controller
             $room->save();
         }
 
-        return redirect('/room');
+        // 作成されたルームへ
+        return redirect('/room/' .$room->id);
+    }
+
+    /***********************************************************/
+    /* ルーム編集ページ                                         */
+    /***********************************************************/
+    public function edit($room_id)
+    {
+        // アクセス権限チェック
+        $access = $this->permissionCheack($room_id);
+        if (!$access) {
+            $previous_url = parse_url(url()->previous(), PHP_URL_PATH);
+            return redirect($previous_url);
+        }
+
+        // ルーム情報を取得
+        $room = Room::find($room_id);
+
+        return view('room.edit', ['room' => $room]);
+    }
+
+    /***********************************************************/
+    /* ルーム編集処理                                           */
+    /***********************************************************/
+    public function update(Request $request, $room_id)
+    {
+        // アクセス権限チェック
+        $access = $this->permissionCheack($room_id);
+        if (!$access) {
+            $previous_url = parse_url(url()->previous(), PHP_URL_PATH);
+            return redirect($previous_url);
+        }
+
+        // バリデーションチェック
+        $validator = Room::validation($request);
+        if ($validator->fails()) {
+            return redirect('/room/' . $room_id . '/edit')
+                    ->withErrors($validator)
+                    ->withInput();
+        }
+
+        // DBに保存
+        $room = Room::find($room_id);
+        $room->title = $request->title;
+
+        // サムネイルがあれば[strage/app/public/thumbnail]に保存
+        $thumbnail = $request->thumbnail;
+        if (!is_null($thumbnail)) {
+            $filePath = 'thumbnail/room' . $room->id . '.jpg';
+
+            $thumbnail = InterventionImage::make($thumbnail)
+                ->encode('jpg')
+                ->fit(256, 256)
+                ->save(storage_path() . '/app/public/' . $filePath);
+
+            $room->thumbnail = $filePath;
+        }
+
+        $room->save();
+
+        return redirect('/room/' . $room_id);
+    }
+
+    /***********************************************************/
+    /* ルーム削除処理                                           */
+    /***********************************************************/
+    public function delete($room_id)
+    {
+        // アクセス権限チェック
+        $this->permissionCheack($room_id);
+        
+        // ルーム情報を取得
+        $room = Room::find($room_id)->delete();
+
+        return redirect('room')
+                ->with('flash_message', 'ルームが削除されました');
     }
 
     /***********************************************************/

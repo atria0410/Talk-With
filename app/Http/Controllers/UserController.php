@@ -13,6 +13,19 @@ use App\Models\Room;
 class UserController extends Controller
 {
     /***********************************************************/
+    /* 権限チェック                                             */
+    /***********************************************************/
+    public function permissionCheack($user_id) {
+        // アクセス権限がない場合前の画面にリダイレクト
+        if(session('user_id') != $user_id){
+            // メッセージを表示
+            echo "<script>alert('アクセス権限がありません。リダイレクトします。')</script>;";
+            return false;
+        }
+        return true;
+    }
+
+    /***********************************************************/
     /* ユーザー閲覧ページ                                        */
     /***********************************************************/
     public function show($user_id)
@@ -77,7 +90,8 @@ class UserController extends Controller
         session()->put('user_name', $user->name);
         session()->put('user_icon', $user->icon);
 
-        return redirect('room');
+        return redirect('room')
+            ->with('flash_message', 'ようこそ ' . $user->name . ' さん');
     }
 
     /***********************************************************/
@@ -85,6 +99,13 @@ class UserController extends Controller
     /***********************************************************/
     public function edit($user_id)
     {
+        // アクセス権限チェック
+        $access = $this->permissionCheack($user_id);
+        if (!$access) {
+            $previous_url = parse_url(url()->previous(), PHP_URL_PATH);
+            return redirect($previous_url);
+        }
+
         // ユーザー情報を取得
         $user = User::find($user_id);
 
@@ -96,6 +117,13 @@ class UserController extends Controller
     /***********************************************************/
     public function update(Request $request, $user_id)
     {
+        // アクセス権限チェック
+        $access = $this->permissionCheack($user_id);
+        if (!$access) {
+            $previous_url = parse_url(url()->previous(), PHP_URL_PATH);
+            return redirect($previous_url);
+        }
+        
         // バリデーションチェック
         $validator = User::edit_validation($request, $user_id);
         if ($validator->fails()) {
@@ -129,7 +157,8 @@ class UserController extends Controller
         session()->put('user_name', $user->name);
         session()->put('user_icon', $user->icon);
 
-        return redirect('/user/' . $user_id);
+        return redirect('/user/' . $user_id)
+            ->with('flash_message', 'ユーザー情報が更新されました');
         
     }
 

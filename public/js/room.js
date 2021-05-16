@@ -7,8 +7,15 @@ new Vue({
             var url = URL.createObjectURL(file);
 
             this.$refs.preview.src = url;
-            console.log(this.$refs);
             this.$refs.fileLabel.innerHTML = file.name;
+        },
+        // ルーム削除
+        submit() {
+            if(!confirm('本当によろしいですか？')){
+                event.preventDefault();
+            }
+
+            return;
         }
     }
 });

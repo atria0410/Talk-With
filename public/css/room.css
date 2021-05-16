@@ -81,7 +81,32 @@ dl.search-form dd button img {
     width: 300px;
 }
 
+/* ルーム編集ページ */
+.btn-update, .btn-delete {
+    width: 8em;
+}
+
 /* チャットページ */
+.room-title2 {
+    text-align: left;
+    font-size: 1.3em;
+    font-weight: bold;
+    height:40px;
+    line-height:40px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.room-edit-btn {
+    height: 40px;
+}
+
+.room-edit-btn button {
+    float: right;
+    margin-top: 1px;
+}
+
 .fixed-title {
     width: 100%;
     padding: 0 5%;
@@ -92,9 +117,6 @@ dl.search-form dd button img {
     height: 90px;
     padding-top: 55px;
     background-color: #f8fafc;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
     border-bottom: solid 1px lightgray;
 }
 

@@ -24,6 +24,13 @@ body {
     margin: 10px 0;
 }
 
+.flash_message {
+    font-size: 1.1em;
+    color: white;
+    letter-spacing: 0.2em;
+    background-color: #38C1AD
+}
+
 .error-message {
     color: red;
 }

@@ -21,6 +21,13 @@
         <!-- ヘッダー -->
         @yield('header')
 
+        <!-- フラッシュメッセージ -->
+        @if (session('flash_message'))
+            <div class="flash_message text-center py-3 my-0">
+                {{ session('flash_message') }}
+            </div>
+        @endif
+
         <!-- メインコンテンツ -->
         <div class="container">
             @yield('content')
