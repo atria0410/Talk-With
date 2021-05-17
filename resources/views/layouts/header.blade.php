@@ -2,19 +2,17 @@
 <div class='fixed-top'>
     <nav class="navbar navbar-expand-md navbar-dark bg-dark">
         <div class="container">
-            <a href="/" class="navbar-brand">Talk With</a>
+            <a href="/" class="navbar-brand talk-with">Talk With</a>
             
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
+            @if (session('login'))
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
 
-            
-            <div class="collapse navbar-collapse" id="navbarNavDropdown">
-                <ul class="navbar-nav mr-auto">
-                </ul>
-
-                <ul class="navbar-nav">
-                    @if (session('login'))
+                <div class="collapse navbar-collapse" id="navbarNavDropdown">
+                    <ul class="navbar-nav mr-auto">
+                    </ul>
+                    <ul class="navbar-nav">
                         <li class="nav-item">
                             <a class="nav-link" href="/room">オープンルーム</a>
                         </li>
@@ -39,14 +37,10 @@
                                 @endif
                                 <a class="dropdown-item" href="/logout">ログアウト</a>
                             </div>
-                        </li>
-                    @else
-                        <li class="nav-item">
-                            <a class="nav-link" href="/login">ログイン</a>
-                        </li>
-                    @endif
-                </ul>
-            </div> 
+                        </li>           
+                    </ul>
+                </div>
+            @endif
 
         </div>
     </nav>

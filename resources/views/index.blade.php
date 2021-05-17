@@ -9,11 +9,32 @@
 @endsection
 
 @section('content')
-    <h1 class="text-center title">Talk Withとは？</h1>
-    <div class="row description">
-        <div class="offset-lg-2 col-md-8 offset-md-3 col-md-6 col-12">
-        Talk_withでは趣味の会う仲間と気軽にリアルタイムチャットを行えます。
-        <br>
-        ルームを作成したり、他の人の作成したルームに参加して様々な話題で盛り上がりましょう！
+
+    <div class="title">
+        <div class="title-text">
+            Welcom to the<br>
+            Talk With
+        </div>
     </div>
+
+    <div class="description">
+        <div class="description-text">
+            <div class="description-main">
+                Talk With とは ?
+            </div>
+            <div class="description-sub">
+                Talk_withでは趣味の会う仲間と気軽にリアルタイムチャットを行えます。<br>
+                興味のあるルームに参加して趣味の合う仲間と盛り上がろう！
+            </div>
+        </div>
+    </div>
+
+    <div class="sign-in row">
+        <div class="sigin-in-btn offset-lg-4 col-lg-4 offset-2 col-8">
+            <a href="/login" class="btn btn-success w-100">
+                サインイン
+            </a>
+        </div>
+    </div>
+
 @endsection

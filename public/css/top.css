@@ -1,8 +1,79 @@
+html {
+    height: 100%;
+}
+
+body {
+    background: url(/img/bg-top.jpg) no-repeat center center;
+    background-color:rgba(255,255,255,0.1);
+    background-blend-mode: lighten;
+    background-size: cover;
+    height: 100%;
+    box-sizing: border-box;
+}
+
+.container {
+    height: 100%;
+}
+
 .title {
-    margin: 1.2em 1.2em;
+    position: relative;
+    height: 30%;
+}
+
+.title-text {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 100%;
+    font-weight: bold;
+    text-align: center;
+    font-size: 3.0em;
+    letter-spacing: 5px;
+    color:white;
 }
 
 .description {
-    font-size: 1.5em;
+    position: relative;
+    height: 25%;
+    background-color:dimgrey;
+    opacity: 0.9;
+    border-radius: 10px;
+}
+
+.description-text {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 100%;
+    text-align: center;
+    color: whitesmoke;
     line-height: 2.0em;
+    padding: 5px;
+}
+
+.description .description-main {
+    font-size: 2.0em;
+    margin-bottom: 20px;
+}
+
+.description .description-sub {
+    font-size: 1.5em;
+}
+
+.sign-in {
+    position: relative;
+    height: 25%;
+}
+
+.sigin-in-btn {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+.sigin-in-btn .btn {
+    font-size: 1.2em;
+    font-weight: bold;
+    padding-right: 1.3em;
+    padding-left: 1.3em;
 }
