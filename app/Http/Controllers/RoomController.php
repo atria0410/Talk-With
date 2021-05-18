@@ -127,6 +127,8 @@ class RoomController extends Controller
     /***********************************************************/
     public function create(Request $request)
     {
+        $request->session()->regenerateToken();
+        
         // バリデーションチェック
         $validator = Room::validation($request);
         if ($validator->fails()) {
@@ -242,6 +244,7 @@ class RoomController extends Controller
     /***********************************************************/
     public function send(Request $request, $room_id)
     {
+        $request->session()->regenerateToken();
         // バリデーションチェック
         // メッセージか画像のどちらかは必須
         $validator = Chat::validation($request);

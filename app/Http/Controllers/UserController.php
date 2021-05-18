@@ -192,8 +192,13 @@ class UserController extends Controller
         $user = User::find($user_id);
         $user->name = $request->name;
         $user->email = $request->email;
-        $user->comment = $request->comment;
         $user->password = Crypt::encrypt($request->password);
+
+        if (!is_null($request->comment)) {
+            $user->comment = $request->comment;
+        } else {
+            $user->comment = '';
+        }
 
         // ユーザーアイコンがあれば[strage/app/public/icon]に保存
         $icon = $request->icon;

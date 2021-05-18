@@ -13,7 +13,7 @@
 @endsection
 
 @section('content')
-    <div id="new">
+    <div id="edit">
         <div class="page-title">ルーム編集</div>
         <div class="card">
             <div class="card-body">
@@ -35,7 +35,7 @@
                             </div>
                             <div class="col-12">
                                 <div class="custom-file">
-                                    <input type="file" name="thumbnail" class="custom-file-input" id="customFile" accept=".png,.jpg,.gif" ref="fileSelect" @change="uploadFile">
+                                    <input type="file" name="thumbnail" class="custom-file-input" id="customFile" accept=".png,.jpg,.gif" ref="fileSelect" @change="previewImage">
                                     <label class="custom-file-label" for="customFile" data-browse="参照" ref="fileLabel">ファイルを選択...</label>
                                     @error ('thumbnail')
                                         <div class="error-message">{{ $message }}</div>

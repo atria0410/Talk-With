@@ -14,10 +14,12 @@
 
 @section('content')
     <div id="new">
+    
         <div class="page-title">ルーム作成</div>
+        
         <div class="card">
             <div class="card-body">
-                <form action="/room" method="post" enctype="multipart/form-data">
+                <form action="/room" method="post" @submit="submit()" enctype="multipart/form-data">
                     @csrf
                     <div class="form-group">
                         <label class="form-label">タイトル（必須）</label>
@@ -35,7 +37,7 @@
                             </div>
                             <div class="col-12">
                                 <div class="custom-file">
-                                    <input type="file" name="thumbnail" class="custom-file-input" id="customFile" accept=".png,.jpg,.gif" ref="fileSelect" @change="uploadFile">
+                                    <input type="file" name="thumbnail" class="custom-file-input" id="customFile" accept=".png,.jpg,.gif" ref="fileSelect" @change="previewImage">
                                     <label class="custom-file-label" for="customFile" data-browse="参照" ref="fileLabel">ファイルを選択...</label>
                                     @error ('thumbnail')
                                         <div class="error-message">{{ $message }}</div>
@@ -46,10 +48,11 @@
                     </div>
                     
                     <div class="room-create-btn">
-                        <button type="submit" class="btn btn-primary">ルームを作成</button>
+                        <button type="submit" :disabled="disabled" class="btn btn-primary">ルームを作成</button>
                     </div>
                 </form>
             </div>
         </div>
+
     </div>
 @endsection

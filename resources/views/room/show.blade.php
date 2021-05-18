@@ -14,10 +14,9 @@
 
 @section('content')
 
-    <div id="app">
+    <div id="show">
         <input type="hidden" ref="room_id" value="{{ $room->id }}">
         <input type="hidden" ref="owner_id" value="{{ $room->user_id }}">
-        <input type="hidden" ref="strage_path" value="{{ asset('storage/') }}">
 
         <!-- タイトル -->
         <div class="fixed-top fixed-title">
@@ -48,7 +47,7 @@
                     <tr>
                         <td valign="top" class="td-icon">
                             <a :href="`/user/${chat.user_id}`">
-                                <img :src="`${stragePath}/${chat.user_icon}`" alt="アイコン" class="icon">
+                                <img :src="`{{ asset('storage/') }}/${chat.user_icon}`" alt="アイコン" class="icon">
                             </a>
                         </td>
                         <td class="td-main">
@@ -65,7 +64,7 @@
                                 <tr>
                                     <td class="td-message">
                                         <template v-if="chat.image !== null">
-                                            <img :src="`${stragePath}/${chat.image}`" class="image">
+                                            <img :src="`{{ asset('storage/') }}/${chat.image}`" class="image">
                                             <br>
                                         </template>
                                         @{{ chat.message }}
@@ -88,7 +87,7 @@
                 </div>
                 <div class="col-lg-1 col-md-2 col-3 p-0">
                     <div ref="send_btn" class="send-message-btn">
-                        <button @click="send()" class="btn btn-primary">送信</button>
+                        <button @click="send()" :disabled="disabled" class="btn btn-primary">送信</button>
                     </div>
                 </div>
             </div>

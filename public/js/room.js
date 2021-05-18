@@ -1,15 +1,38 @@
-/* 新規作成ページ */
+/* ルーム作成ページ */
 new Vue({
     el: '#new',
+    data: {
+        disabled: false　    // ルーム作成ボタンの無効化
+    },
     methods: {
-        uploadFile() {
+        // 選択したファイルのプレビュー
+        previewImage() {
             var file = this.$refs.fileSelect.files[0];
             var url = URL.createObjectURL(file);
 
             this.$refs.preview.src = url;
             this.$refs.fileLabel.innerHTML = file.name;
         },
-        // ルーム削除
+        // ルーム作成ボタン押下時処理
+        submit() {
+            this.disabled = true; // 2重送信防止
+        }
+    }
+});
+
+/* ルーム編集ページ */
+new Vue({
+    el: '#edit',
+    methods: {
+        // 選択したファイルのプレビュー
+        previewImage() {
+            var file = this.$refs.fileSelect.files[0];
+            var url = URL.createObjectURL(file);
+
+            this.$refs.preview.src = url;
+            this.$refs.fileLabel.innerHTML = file.name;
+        },
+        // 編集・削除ボタン押下時処理
         submit() {
             if(!confirm('本当によろしいですか？')){
                 event.preventDefault();
@@ -20,11 +43,10 @@ new Vue({
     }
 });
 
-/* メッセージフォームのサイズを自動調整する */
+/* チャットページ */
 new Vue({
-    el: '#app',
+    el: '#show',
     data: {
-        stragePath: '',     // ストレージパス
         room_id: '',        // ルームID
         owner_id: '',       // オーナーのユーザーID
         chats: [],          // 全チャットデータ
@@ -33,7 +55,8 @@ new Vue({
         image: '',          // 画像
         defaultHright: 0,   // テキストエリアのデフォルト高さ
         previousHeight: 0,  // テキストエリアの更新前の高さ
-        row: 1              // テキストエリアの行数
+        row: 1,             // テキストエリアの行数
+        disabled: false     // 送信ボタンの無効化
     },
     methods: {
         // Ajaxでメッセージを取得
@@ -53,6 +76,8 @@ new Vue({
         },
         // Ajaxでメッセージを送信
         send() {
+            this.disabled = true; // 2重送信防止
+
             const url = '/room/' + this.room_id + '/send';
             
             const formData = new FormData();
@@ -66,10 +91,13 @@ new Vue({
             };
 
             axios.post(url, formData, config)
-              .then((response) => {
+                .then((response) => {
                     this.message = '';
                     this.image = '';
                     this.$refs.image_file.value = null;
+                })
+                .finally(() => {
+                    this.disabled = false;  // ボタン無効化解除
                 });
         },
         // 日付フォーマットを設定
@@ -106,6 +134,7 @@ new Vue({
         }
     },
     filters: {
+        // 日付変換
         moment(value, format) {
             return moment(value).format(format);
         }
@@ -115,15 +144,13 @@ new Vue({
         this.room_id = this.$refs.room_id.value;
         // オーナーのユーザーIDを取得
         this.owner_id = this.$refs.owner_id.value;
-        
-        // 画像ストレージのパスを取得
-        this.stragePath = this.$refs.strage_path.value;
 
         // テキストエリアのサイズを取得
         const textarea = this.$refs.adjust_textarea;
         this.defaultHright = textarea.scrollHeight;
         this.previousHeight = textarea.scrollHeight;
 
+        // Ajaxでチャット履歴を取得
         this.getChats();
 
         Echo.channel('chat').listen('MessageCreated', (e) => {

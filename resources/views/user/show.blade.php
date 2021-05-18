@@ -97,11 +97,11 @@
                                         @if ($follow->id != session('user_id') && session('user_id') != 1)
                                             <input type="hidden" id="follow-{{ $follow->id }}" value="{{ $follow->followed }}">
                                             @if(!$follow->followed)
-                                                <button @click="follow({{ $follow->id }}, 'follow-{{ $follow->id }}')" class="btn btn-primary">
+                                                <button @click="follow({{ $follow->id }}, 'follow-{{ $follow->id }}')" :disabled="disabled" class="btn btn-primary">
                                                     フォローする
                                                 </button>
                                             @else
-                                                <button @click="follow({{ $follow->id }}, 'follow-{{ $follow->id }}')" class="btn btn-danger">
+                                                <button @click="follow({{ $follow->id }}, 'follow-{{ $follow->id }}')" :disabled="disabled" class="btn btn-danger">
                                                     フォロー解除
                                                 </button>
                                             @endif
@@ -140,11 +140,11 @@
                                         @if ($follower->id != session('user_id') && session('user_id') != 1)
                                             <input type="hidden" id="follower-{{ $follower->id }}" value="{{ $follower->followed }}">
                                             @if(!$follower->followed)
-                                                <button @click="follow({{ $follower->id }}, 'follower-{{ $follower->id }}')" class="btn btn-primary">
+                                                <button @click="follow({{ $follower->id }}, 'follower-{{ $follower->id }}')" :disabled="disabled" class="btn btn-primary">
                                                     フォローする
                                                 </button>
                                             @else
-                                                <button id="follo" @click="follow({{ $follower->id }}, 'follower-{{ $follower->id }}')" class="btn btn-danger">
+                                                <button id="follo" @click="follow({{ $follower->id }}, 'follower-{{ $follower->id }}')" :disabled="disabled" class="btn btn-danger">
                                                     フォロー解除
                                                 </button>
                                             @endif

@@ -23,7 +23,7 @@
                 Talk With とは ?
             </div>
             <div class="description-sub">
-                Talk_withでは趣味の会う仲間と気軽にリアルタイムチャットを行えます。<br>
+                Talk withでは趣味の会う仲間と気軽にリアルタイムチャットを行えます。<br>
                 興味のあるルームに参加して趣味の合う仲間と盛り上がろう！
             </div>
         </div>

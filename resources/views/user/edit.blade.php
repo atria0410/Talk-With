@@ -13,14 +13,13 @@
 @endsection
 
 @section('content')
-
-    <div id="app">
+    <div id="edit">
 
         <div class="page-title">ユーザー情報の編集</div>
         
         <div class="card">
             <div class="card-body">
-                <form action="/user/{{ $user->id }}" method="post" enctype="multipart/form-data">
+                <form action="/user/{{ $user->id }}" method="post" @submit="submit()" enctype="multipart/form-data">
                     @csrf
 
                     <div class="form-group">
@@ -60,7 +59,7 @@
                             </div>
                             <div class="col-12">
                                 <div class="custom-file">
-                                    <input type="file" name="icon" class="custom-file-input" id="customFile" accept=".png,.jpg,.gif" ref="fileSelect" @change="uploadFile">
+                                    <input type="file" name="icon" class="custom-file-input" id="customFile" accept=".png,.jpg,.gif" ref="fileSelect" @change="previewImage">
                                     <label class="custom-file-label" for="customFile" data-browse="参照" ref="fileLabel">ファイルを選択...</label>
                                     @error ('icon')
                                         <div class="error-message">{{ $message }}</div>
@@ -79,7 +78,7 @@
                     </div>
 
                     <div class="user-edit-btn">
-                        <button type="submit" class="btn btn-primary">変更を保存</button>
+                        <button type="submit"　:disabled="disabled" class="btn btn-primary">変更を保存</button>
                     </div>
 
                 </form>
@@ -87,5 +86,4 @@
         </div>
     
     </div>
-
 @endsection
