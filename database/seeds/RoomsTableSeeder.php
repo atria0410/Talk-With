@@ -13,7 +13,7 @@ class RoomsTableSeeder extends Seeder
     {
         $param = [
             'user_id' => 2,
-            'title' => 'カードゲーム好きの会',
+            'title' => 'カードゲーマーの集い',
             'thumbnail' => 'thumbnail/default.jpg',
             'created_at' => new DateTime(),
             'updated_at' => new DateTime(),
@@ -31,7 +31,7 @@ class RoomsTableSeeder extends Seeder
 
         $param = [
             'user_id' => 4,
-            'title' => 'みんなの推しを教えて',
+            'title' => 'サイクリング同好会',
             'thumbnail' => 'thumbnail/default.jpg',
             'created_at' => new DateTime(),
             'updated_at' => new DateTime(),
