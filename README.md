@@ -6,7 +6,7 @@
 &ensp;レスポンシブデザインにも対応しています。  
 
 ## URL
-http://52.197.120.244:8000/
+https://www.talk-with.com/login
 
 ## 使用技術
 ### &ensp;バックエンド

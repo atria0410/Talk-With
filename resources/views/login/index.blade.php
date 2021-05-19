@@ -5,7 +5,11 @@
 @include('layouts.header')
 
 @section('custom_css')
-    <link href="{{ asset('/css/login.css') }}" rel="stylesheet">
+    @if(app('env')=='local')
+        <link href="{{ asset('/css/login.css') }}" rel="stylesheet">
+    @elseif(app('env')=='production')
+        <link href="{{ secure_asset('/css/login.css') }}" rel="stylesheet">
+    @endif
 @endsection
 
 @section('custom_js')

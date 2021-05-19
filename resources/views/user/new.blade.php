@@ -5,11 +5,19 @@
 @include('layouts.header')
 
 @section('custom_css')
-    <link href="{{ asset('/css/user.css') }}" rel="stylesheet">
+    @if(app('env')=='local')
+        <link href="{{ asset('/css/user.css') }}" rel="stylesheet">
+    @elseif(app('env')=='production')
+        <link href="{{ secure_asset('/css/user.css') }}" rel="stylesheet">
+    @endif
 @endsection
 
 @section('custom_js')
-    <script src="{{ asset('/js/user.js') }}" defer></script>
+    @if(app('env')=='local')
+        <script src="{{ asset('/js/user.js') }}" defer></script>
+    @elseif(app('env')=='production')
+        <script src="{{ secure_asset('/js/user.js') }}" defer></script>
+    @endif
 @endsection
 
 @section('content')

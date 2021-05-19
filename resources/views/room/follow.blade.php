@@ -5,7 +5,11 @@
 @include('layouts.header')
 
 @section('custom_css')
-    <link href="{{ asset('/css/room.css') }}" rel="stylesheet">
+    @if(app('env')=='local')
+        <link href="{{ asset('/css/room.css') }}" rel="stylesheet">
+    @elseif(app('env')=='production')
+        <link href="{{ secure_asset('/css/room.css') }}" rel="stylesheet">
+    @endif
 @endsection
 
 @section('content')
