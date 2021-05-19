@@ -6,7 +6,7 @@
 &ensp;レスポンシブデザインにも対応しています。  
 
 ## URL
-https://www.talk-with.com/login
+https://www.Talk-With.com
 
 ## 使用技術
 ### &ensp;バックエンド
