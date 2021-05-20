@@ -92,6 +92,7 @@ class LoginController extends Controller
     public function sendMail(Request $request)
     {
         // 仮パスワードの発行
+        print_r("この処理はまだ未実装です。");
         
     }
 }

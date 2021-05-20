@@ -8,6 +8,10 @@
 ## URL
 https://www.Talk-With.com
 
+ログイン用サンプルユーザー  
+メールアドレス：taro@yamada.jp  
+パスワード：yamada
+
 ## 使用技術
 ### &ensp;バックエンド
 * PHP 7.4
@@ -19,6 +23,7 @@ https://www.Talk-With.com
 * Vue.js  2
 ### &ensp;インフラ
 * AWS
-    * VPC
-    * EC2
 * Docker / Docker-compose  
+
+## AWS構成図
+![aws-architecture](https://user-images.githubusercontent.com/70093193/118987262-11960780-b9bb-11eb-845a-f56a958b6fe7.png)
